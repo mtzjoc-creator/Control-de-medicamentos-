@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medicamentos — Moisés Aguilar</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#020817;
+--card:#0f172a;
+--txt:#f8fafc;
+--muted:#94a3b8;
+--blue:#3b82f6;
+--green:#10b981;
+--shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Nunito',sans-serif;
+}
+body{
+background:linear-gradient(180deg,#020617,#0f172a);
+color:var(--txt);
+min-height:100vh;
+}
+.header{
+padding:28px 18px;
+background:linear-gradient(135deg,#0f172a,#172554 60%,#1d4ed8);
+text-align:center;
+box-shadow:var(--shadow);
+}
+.logo{
+font-size:42px;
+}
+.title{
+font-size:24px;
+font-weight:900;
+margin-top:8px;
+}
+.subtitle{
+color:#bfdbfe;
+margin-top:4px;
+}
+.clock{
+font-size:52px;
+font-weight:900;
+margin-top:18px;
+}
+.date{
+margin-top:6px;
+color:#cbd5e1;
+}
+.container{
+max-width:540px;
+margin:auto;
+padding:18px;
+}
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:-22px;
+}
+.stat{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+padding:16px;
+text-align:center;
+backdrop-filter:blur(10px);
+}
+.stat-number{
+font-size:30px;
+font-weight:900;
+}
+.stat-label{
+font-size:12px;
+color:var(--muted);
+margin-top:4px;
+}
+.next{
+margin-top:18px;
+padding:20px;
+border-radius:22px;
+background:linear-gradient(135deg,#172554,#2563eb);
+box-shadow:var(--shadow);
+}
+.next-label{
+font-size:12px;
+text-transform:uppercase;
+letter-spacing:1px;
+color:#bfdbfe;
+font-weight:800;
+}
+.next-name{
+font-size:26px;
+font-weight:900;
+margin-top:8px;
+}
+.next-time{
+margin-top:10px;
+color:#dbeafe;
+}
+.actions{
+display:flex;
+gap:10px;
+margin-top:18px;
+}
+.btn{
+border:none;
+border-radius:16px;
+cursor:pointer;
+font-weight:800;
+}
+.btn-primary{
+flex:1;
+padding:16px;
+background:linear-gradient(135deg,#2563eb,#60a5fa);
+color:white;
+font-size:15px;
+}
+.btn-icon{
+width:56px;
+font-size:22px;
+background:#111827;
+color:white;
+}
+.section-title{
+margin:28px 4px 14px;
+font-size:18px;
+font-weight:900;
+}
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
+padding:18px;
+margin-bottom:14px;
+box-shadow:var(--shadow);
+}
+.card-head{
+display:flex;
+justify-content:space-between;
+gap:12px;
+}
+.med-name{
+font-size:22px;
+font-weight:900;
+}
+.med-dose{
+margin-top:4px;
+color:#cbd5e1;
+}
+.med-next{
+margin-top:10px;
+display:inline-block;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(16,185,129,.15);
+color:#6ee7b7;
+font-size:13px;
+font-weight:800;
+}
+.chips{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:16px;
+}
+.chip{
+padding:8px 14px;
+border-radius:999px;
+background:rgba(255,255,255,.08);
+font-size:13px;
+font-weight:800;
+}
+.notes{
+margin-top:14px;
+padding-top:14px;
+border-top:1px solid rgba(255,255,255,.08);
+color:#94a3b8;
+}
+.floating{
+position:fixed;
+right:18px;
+bottom:18px;
+width:70px;
+height:70px;
+border:none;
+border-radius:50%;
+background:linear-gradient(135deg,#2563eb,#60a5fa);
+color:white;
+font-size:36px;
+box-shadow:0 18px 35px rgba(37,99,235,.45);
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+<div class="logo">💊</div>
+<div class="title">Control de Medicamentos</div>
+<div class="subtitle">Moisés Aguilar M.</div>
+<div class="clock" id="clock">00:00</div>
+<div class="date" id="date"></div>
+</header>
+
+<div class="container">
+
+<div class="stats">
+<div class="stat">
+<div class="stat-number" style="color:#60a5fa">5</div>
+<div class="stat-label">Medicamentos</div>
+</div>
+
+<div class="stat">
+<div class="stat-number" style="color:#34d399">12</div>
+<div class="stat-label">Tomas</div>
+</div>
+
+<div class="stat">
+<div class="stat-number" style="color:#f59e0b">2</div>
+<div class="stat-label">Alertas</div>
+</div>
+</div>
+
+<div class="next">
+<div class="next-label">Próxima toma</div>
+<div class="next-name">Metformina</div>
+<div class="next-time">⏰ 08:00 PM · en 1h 20m</div>
+</div>
+
+<div class="actions">
+<button class="btn btn-primary">+ Agregar medicamento</button>
+<button class="btn btn-icon">🔔</button>
+<button class="btn btn-icon">📤</button>
+</div>
+
+<div class="section-title">Mis medicamentos</div>
+
+<div class="card">
+<div class="card-head">
+<div>
+<div class="med-name">Metformina</div>
+<div class="med-dose">📋 500 mg</div>
+<div class="med-next">⏰ Próxima toma: 08:00 PM</div>
+</div>
+</div>
+
+<div class="chips">
+<div class="chip">08:00 AM</div>
+<div class="chip">08:00 PM</div>
+</div>
+
+<div class="notes">
+📝 Tomar después de alimentos.
+</div>
+</div>
+
+<div class="card">
+<div class="card-head">
+<div>
+<div class="med-name">Losartán</div>
+<div class="med-dose">📋 1 tableta</div>
+<div class="med-next">⏰ Próxima toma: 09:00 PM</div>
+</div>
+</div>
+
+<div class="chips">
+<div class="chip">09:00 PM</div>
+</div>
+
+<div class="notes">
+📝 Mantener hidratación.
+</div>
+</div>
+
+</div>
+
+<button class="floating">＋</button>
+
+<script>
+function updateClock(){
+const now = new Date();
+
+document.getElementById('clock').textContent =
+now.toLocaleTimeString('es-MX',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+document.getElementById('date').textContent =
+now.toLocaleDateString('es-MX',{
+weekday:'long',
+day:'numeric',
+month:'long'
+});
+}
+
+updateClock();
+setInterval(updateClock,1000);
+</script>
+
+</body>
+</html>
