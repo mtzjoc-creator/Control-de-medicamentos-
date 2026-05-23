@@ -1,308 +1,224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Medicamentos — Moisés Aguilar</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{
---bg:#020817;
---card:#0f172a;
---txt:#f8fafc;
---muted:#94a3b8;
---blue:#3b82f6;
---green:#10b981;
---shadow:0 10px 30px rgba(0,0,0,.35);
-}
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Nunito',sans-serif;
-}
-body{
-background:linear-gradient(180deg,#020617,#0f172a);
-color:var(--txt);
-min-height:100vh;
-}
-.header{
-padding:28px 18px;
-background:linear-gradient(135deg,#0f172a,#172554 60%,#1d4ed8);
-text-align:center;
-box-shadow:var(--shadow);
-}
-.logo{
-font-size:42px;
-}
-.title{
-font-size:24px;
-font-weight:900;
-margin-top:8px;
-}
-.subtitle{
-color:#bfdbfe;
-margin-top:4px;
-}
-.clock{
-font-size:52px;
-font-weight:900;
-margin-top:18px;
-}
-.date{
-margin-top:6px;
-color:#cbd5e1;
-}
-.container{
-max-width:540px;
-margin:auto;
-padding:18px;
-}
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-top:-22px;
-}
-.stat{
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-border-radius:18px;
-padding:16px;
-text-align:center;
-backdrop-filter:blur(10px);
-}
-.stat-number{
-font-size:30px;
-font-weight:900;
-}
-.stat-label{
-font-size:12px;
-color:var(--muted);
-margin-top:4px;
-}
-.next{
-margin-top:18px;
-padding:20px;
-border-radius:22px;
-background:linear-gradient(135deg,#172554,#2563eb);
-box-shadow:var(--shadow);
-}
-.next-label{
-font-size:12px;
-text-transform:uppercase;
-letter-spacing:1px;
-color:#bfdbfe;
-font-weight:800;
-}
-.next-name{
-font-size:26px;
-font-weight:900;
-margin-top:8px;
-}
-.next-time{
-margin-top:10px;
-color:#dbeafe;
-}
-.actions{
-display:flex;
-gap:10px;
-margin-top:18px;
-}
-.btn{
-border:none;
-border-radius:16px;
-cursor:pointer;
-font-weight:800;
-}
-.btn-primary{
-flex:1;
-padding:16px;
-background:linear-gradient(135deg,#2563eb,#60a5fa);
-color:white;
-font-size:15px;
-}
-.btn-icon{
-width:56px;
-font-size:22px;
-background:#111827;
-color:white;
-}
-.section-title{
-margin:28px 4px 14px;
-font-size:18px;
-font-weight:900;
-}
-.card{
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-border-radius:22px;
-padding:18px;
-margin-bottom:14px;
-box-shadow:var(--shadow);
-}
-.card-head{
-display:flex;
-justify-content:space-between;
-gap:12px;
-}
-.med-name{
-font-size:22px;
-font-weight:900;
-}
-.med-dose{
-margin-top:4px;
-color:#cbd5e1;
-}
-.med-next{
-margin-top:10px;
-display:inline-block;
-padding:8px 12px;
-border-radius:999px;
-background:rgba(16,185,129,.15);
-color:#6ee7b7;
-font-size:13px;
-font-weight:800;
-}
-.chips{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:16px;
-}
-.chip{
-padding:8px 14px;
-border-radius:999px;
-background:rgba(255,255,255,.08);
-font-size:13px;
-font-weight:800;
-}
-.notes{
-margin-top:14px;
-padding-top:14px;
-border-top:1px solid rgba(255,255,255,.08);
-color:#94a3b8;
-}
-.floating{
-position:fixed;
-right:18px;
-bottom:18px;
-width:70px;
-height:70px;
-border:none;
-border-radius:50%;
-background:linear-gradient(135deg,#2563eb,#60a5fa);
-color:white;
-font-size:36px;
-box-shadow:0 18px 35px rgba(37,99,235,.45);
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="MedsMoisés">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0f1e3d">
+    <title>Control de Medicamentos — Moisés Aguilar M.</title>
+    <link rel="manifest" href="./manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;font-family:'Nunito',system-ui,sans-serif}
+        body{background:#070e1a;color:#e2e8f0;min-height:100vh;overflow-x:hidden}
+        :root{--blue:#2563eb;--green:#10b981;--red:#dc2626;--card:rgba(255,255,255,0.05)}
+        .hidden{display:none!important}
+        #header{background:linear-gradient(160deg,#0f2356,#1a3a7a 60%,#1d4ed8);padding:20px 16px 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 4px 30px rgba(0,0,0,.5)}
+        .h-icon{font-size:26px}
+        .h-title{font-size:18px;font-weight:900;color:#fff;letter-spacing:-.3px}
+        .h-name{font-size:13px;color:#93c5fd;font-weight:700;margin-top:2px}
+        .h-clock{font-size:38px;font-weight:900;color:#dbeafe;line-height:1.2;margin-top:8px;font-variant-numeric:tabular-nums}
+        .h-date{font-size:12px;color:#93c5fd;margin-top:3px;text-transform:capitalize}
+        .alerta-banner{background:linear-gradient(135deg,#991b1b,#dc2626);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 4px 20px rgba(220,38,38,.4);margin-bottom:10px;border-radius:12px}
+        .alerta-banner h3{font-size:16px;font-weight:900}
+        .alerta-banner p{font-size:13px;color:#fca5a5}
+        .btn-tomado{background:rgba(255,255,255,.22);border:1.5px solid rgba(255,255,255,.35);border-radius:10px;color:#fff;padding:10px 14px;cursor:pointer;font-weight:800;font-size:13px}
+        #avisos{background:#0f172a;border-bottom:1px solid #1e293b;padding:10px 16px;display:flex;gap:10px}
+        .btn-aviso{border:none;border-radius:8px;color:#fff;padding:9px 14px;cursor:pointer;font-weight:700;font-size:13px;flex:1}
+        #contenido{padding:16px;max-width:520px;margin:0 auto}
+        .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+        .stat-card{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px 8px;text-align:center}
+        .stat-val{font-size:24px;font-weight:900}
+        .stat-lbl{font-size:10px;color:#64748b}
+        .proxima-banner{border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+        .p-label{font-size:11px;color:#94a3b8;text-transform:uppercase}
+        .p-name{font-weight:700;font-size:16px}
+        .p-info{font-size:13px}
+        .acciones{display:flex;gap:10px;margin-bottom:14px}
+        .btn-primary{flex:1;background:linear-gradient(135deg,#1d4ed8,#2563eb);border:none;border-radius:12px;color:#fff;padding:13px 16px;cursor:pointer;font-weight:800;font-size:15px}
+        .btn-icon{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#94a3b8;padding:12px 14px;font-size:16px}
+        .med-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px;margin-bottom:12px;border-left:4px solid}
+        .med-top{display:flex;justify-content:space-between;align-items:flex-start}
+        .med-name{font-weight:900;font-size:18px}
+        .med-dose{font-size:14px;color:#94a3b8;margin-top:2px}
+        .med-prox{font-size:13px;color:#86efac;margin-top:4px}
+        .med-btns{display:flex;gap:6px}
+        .btn-edit,.btn-del{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 10px;cursor:pointer}
+        .btn-del{background:rgba(239,68,68,.12);color:#f87171}
+        .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+        .chip{border-radius:20px;padding:4px 10px;font-size:12px;font-weight:800}
+        .med-notes{border-top:1px solid rgba(255,255,255,.06);margin-top:10px;padding-top:10px;font-size:13px;color:#64748b}
+        #form-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px}
+        .form-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+        .campo{margin-bottom:16px}
+        .campo label{color:#94a3b8;font-size:12px;font-weight:700;display:block;margin-bottom:6px}
+        .campo input,.campo textarea{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;padding:12px;font-size:15px;outline:none}
+        .time-row{display:flex;gap:8px;margin-bottom:8px}
+        .btn-del-time{background:rgba(239,68,68,.2);border:none;border-radius:8px;color:#f87171;padding:0 12px}
+        .btn-add-time{background:transparent;border:1.5px dashed rgba(255,255,255,.15);border-radius:10px;color:#64748b;padding:10px;width:100%;font-weight:700}
+        .colores{display:flex;gap:8px;flex-wrap:wrap}
+        .color-dot{width:32px;height:32px;border-radius:50%;border:3px solid transparent}
+        .btn-guardar{width:100%;background:linear-gradient(135deg,#1d4ed8,#2563eb);border:none;border-radius:12px;color:#fff;padding:15px;font-size:16px;font-weight:800}
+        .seccion-titulo{font-size:16px;font-weight:800;margin-bottom:12px}
+    </style>
 </head>
 <body>
+    <div id="header">
+        <div class="h-icon">💊</div>
+        <div class="h-title">Control de Medicamentos</div>
+        <div class="h-name">Moisés Aguilar M.</div>
+        <div class="h-clock" id="reloj">--:--</div>
+        <div class="h-date" id="fecha"></div>
+    </div>
+    <div id="alertas-container" style="padding:16px 16px 0"></div>
+    <div id="avisos">
+        <button class="btn-aviso" style="background:#059669" id="btn-audio" onclick="iniciarAudio()">🔊 Activar Sonido</button>
+        <button class="btn-aviso" style="background:#b45309" id="btn-notif" onclick="pedirNotif()">🔔 Activar Alertas</button>
+    </div>
+    <div id="contenido">
+        <div id="vista-home">
+            <div class="stats">
+                <div class="stat-card"><div class="stat-val" id="s-meds" style="color:#60a5fa">0</div><div class="stat-lbl">Medicinas</div></div>
+                <div class="stat-card"><div class="stat-val" id="s-tomas" style="color:#34d399">0</div><div class="stat-lbl">Tomas/Día</div></div>
+                <div class="stat-card"><div class="stat-val" id="s-alertas" style="color:#f472b6">0</div><div class="stat-lbl">Alertas</div></div>
+            </div>
+            <div id="proxima-container"></div>
+            <div class="acciones">
+                <button class="btn-primary" onclick="irAgregar()">+ Agregar medicamento</button>
+            </div>
+            <div class="seccion-titulo">Mis medicamentos</div>
+            <div id="lista-meds"></div>
+        </div>
+        <div id="vista-form" class="hidden">
+            <div id="form-card">
+                <div class="form-header"><h2 id="form-titulo">💊 Nuevo</h2><button onclick="cancelarForm()" style="background:none;border:none;color:#64748b;font-size:20px">✕</button></div>
+                <div class="campo"><label>Nombre del medicamento *</label><input type="text" id="f-name"></div>
+                <div class="campo"><label>Dosis</label><input type="text" id="f-dose" placeholder="Ej. 1 tableta, 5ml"></div>
+                <div class="campo"><label>Horarios</label><div id="tiempos-container"></div><button class="btn-add-time" onclick="agregarTiempo()">+ Añadir horario</button></div>
+                <div class="campo"><label>Color</label><div class="colores" id="colores-container"></div></div>
+                <div class="campo"><label>Notas</label><textarea id="f-notes" rows="2"></textarea></div>
+                <button class="btn-guardar" onclick="guardarForm()">✅ Guardar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let meds = JSON.parse(localStorage.getItem('meds_moises_v1') || '[]');
+        let alertados = new Set();
+        let audioCtx = null, editId = null;
+        const COLORES = ['#3B82F6','#10B981','#F59E0B','#EF4444','#8B5CF6','#EC4899'];
+        let colorSel = COLORES[0], tiemposForm = ['08:00'];
 
-<header class="header">
-<div class="logo">💊</div>
-<div class="title">Control de Medicamentos</div>
-<div class="subtitle">Moisés Aguilar M.</div>
-<div class="clock" id="clock">00:00</div>
-<div class="date" id="date"></div>
-</header>
+        window.addEventListener('DOMContentLoaded', () => {
+            iniciarReloj();
+            setInterval(verificarAlarmas, 15000);
+            renderHome();
+            if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./service-worker.js').catch(()=>{}); }
+        });
 
-<div class="container">
+        function iniciarReloj() {
+            const tick = () => {
+                const now = new Date();
+                document.getElementById('reloj').textContent = now.toLocaleTimeString('es-MX', { hour:'2-digit', minute:'2-digit' });
+                document.getElementById('fecha').textContent = now.toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long' });
+            };
+            tick(); setInterval(tick, 1000);
+        }
 
-<div class="stats">
-<div class="stat">
-<div class="stat-number" style="color:#60a5fa">5</div>
-<div class="stat-label">Medicamentos</div>
-</div>
+        function fmt12(t) {
+            if(!t) return ''; const [h,m] = t.split(':').map(Number);
+            return `${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;
+        }
 
-<div class="stat">
-<div class="stat-number" style="color:#34d399">12</div>
-<div class="stat-label">Tomas</div>
-</div>
+        function renderHome() {
+            document.getElementById('s-meds').textContent = meds.length;
+            document.getElementById('s-tomas').textContent = meds.reduce((s,m)=>s+(m.times?.length||0),0);
+            const lista = document.getElementById('lista-meds');
+            if(!meds.length) { lista.innerHTML = '<p style="text-align:center;color:#475569;padding:20px">No hay medicamentos guardados.</p>'; return; }
+            lista.innerHTML = meds.map(m => `
+                <div class="med-card" style="border-left-color:${m.color}">
+                    <div class="med-top">
+                        <div>
+                            <div class="med-name">${m.name}</div>
+                            ${m.dose?`<div class="med-dose">📋 Dosis: ${m.dose}</div>`:''}
+                        </div>
+                        <div class="med-btns">
+                            <button class="btn-edit" onclick="editarMed('${m.id}')">✏️</button>
+                            <button class="btn-del" onclick="eliminarMed('${m.id}')">🗑</button>
+                        </div>
+                    </div>
+                    <div class="chips">${(m.times||[]).map(t=>`<span class="chip" style="background:${m.color}20;color:${m.color}">${fmt12(t)}</span>`).join('')}</div>
+                    ${m.notes?`<div class="med-notes">📝 ${m.notes}</div>`:''}
+                </div>
+            `).join('');
+        }
 
-<div class="stat">
-<div class="stat-number" style="color:#f59e0b">2</div>
-<div class="stat-label">Alertas</div>
-</div>
-</div>
+        function irAgregar() {
+            editId = null; colorSel = COLORES[0]; tiemposForm = ['08:00'];
+            document.getElementById('form-titulo').textContent = '💊 Nuevo Medicamento';
+            document.getElementById('f-name').value = ''; document.getElementById('f-dose').value = ''; document.getElementById('f-notes').value = '';
+            renderFormTiempos(); renderColores(); mostrarVista('form');
+        }
 
-<div class="next">
-<div class="next-label">Próxima toma</div>
-<div class="next-name">Metformina</div>
-<div class="next-time">⏰ 08:00 PM · en 1h 20m</div>
-</div>
+        function editarMed(id) {
+            const m = meds.find(x => x.id === id); if(!m) return;
+            editId = id; colorSel = m.color; tiemposForm = [...m.times];
+            document.getElementById('form-titulo').textContent = '✏️ Editar Medicamento';
+            document.getElementById('f-name').value = m.name; document.getElementById('f-dose').value = m.dose||''; document.getElementById('f-notes').value = m.notes||'';
+            renderFormTiempos(); renderColores(); mostrarVista('form');
+        }
 
-<div class="actions">
-<button class="btn btn-primary">+ Agregar medicamento</button>
-<button class="btn btn-icon">🔔</button>
-<button class="btn btn-icon">📤</button>
-</div>
+        function renderFormTiempos() {
+            document.getElementById('tiempos-container').innerHTML = tiemposForm.map((t,i)=>`
+                <div class="time-row">
+                    <input type="time" value="${t}" onchange="tiemposForm[${i}]=this.value">
+                    ${tiemposForm.length>1?`<button class="btn-del-time" onclick="tiemposForm.splice(${i},1);renderFormTiempos()">✕</button>`:''}
+                </div>
+            `).join('');
+        }
+        function agregarTiempo() { tiemposForm.push('12:00'); renderFormTiempos(); }
+        function renderColores() {
+            document.getElementById('colores-container').innerHTML = COLORES.map(c=>`
+                <div class="color-dot" style="background:${c};border-color:${c===colorSel?'#fff':'transparent'}" onclick="colorSel='${c}';renderColores()"></div>
+            `).join('');
+        }
 
-<div class="section-title">Mis medicamentos</div>
+        function guardarForm() {
+            const name = document.getElementById('f-name').value.trim(); if(!name) return alert('Pon el nombre');
+            const med = { id: editId || `${Date.now()}`, name, dose: document.getElementById('f-dose').value.trim(), notes: document.getElementById('f-notes').value.trim(), times: [...tiemposForm].sort(), color: colorSel };
+            if(editId) meds = meds.map(x => x.id === editId ? med : x); else meds.push(med);
+            localStorage.setItem('meds_moises_v1', JSON.stringify(meds)); mostrarVista('home'); renderHome();
+        }
 
-<div class="card">
-<div class="card-head">
-<div>
-<div class="med-name">Metformina</div>
-<div class="med-dose">📋 500 mg</div>
-<div class="med-next">⏰ Próxima toma: 08:00 PM</div>
-</div>
-</div>
+        function eliminarMed(id) { if(confirm('¿Eliminar medicina?')) { meds = meds.filter(x=>x.id!==id); localStorage.setItem('meds_moises_v1', JSON.stringify(meds)); renderHome(); } }
+        function mostrarVista(v) { document.getElementById('vista-home').classList.toggle('hidden', v!=='home'); document.getElementById('vista-form').classList.toggle('hidden', v!=='form'); }
+        function iniciarAudio() { audioCtx = new (window.AudioContext||window.webkitAudioContext)(); document.getElementById('btn-audio').style.display='none'; }
+        function pedirNotif() { Notification.requestPermission().then(()=>document.getElementById('btn-notif').style.display='none'); }
 
-<div class="chips">
-<div class="chip">08:00 AM</div>
-<div class="chip">08:00 PM</div>
-</div>
+        function verificarAlarmas() {
+            const now = new Date(); const hhmm = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+            meds.forEach(m => {
+                m.times?.forEach(t => {
+                    const k = `${m.id}-${t}-${now.toDateString()}`;
+                    if(t === hhmm && !alertados.has(k)) { alertados.add(k); dispararAlerta(m, t); }
+                });
+            });
+        }
 
-<div class="notes">
-📝 Tomar después de alimentos.
-</div>
-</div>
-
-<div class="card">
-<div class="card-head">
-<div>
-<div class="med-name">Losartán</div>
-<div class="med-dose">📋 1 tableta</div>
-<div class="med-next">⏰ Próxima toma: 09:00 PM</div>
-</div>
-</div>
-
-<div class="chips">
-<div class="chip">09:00 PM</div>
-</div>
-
-<div class="notes">
-📝 Mantener hidratación.
-</div>
-</div>
-
-</div>
-
-<button class="floating">＋</button>
-
-<script>
-function updateClock(){
-const now = new Date();
-
-document.getElementById('clock').textContent =
-now.toLocaleTimeString('es-MX',{
-hour:'2-digit',
-minute:'2-digit'
-});
-
-document.getElementById('date').textContent =
-now.toLocaleDateString('es-MX',{
-weekday:'long',
-day:'numeric',
-month:'long'
-});
-}
-
-updateClock();
-setInterval(updateClock,1000);
-</script>
-
+        function dispararAlerta(m, t) {
+            document.getElementById('s-alertas').textContent = Number(document.getElementById('s-alertas').textContent)+1;
+            const id = `alt-${Date.now()}`;
+            const div = document.createElement('div'); div.className = 'alerta-banner'; div.id = id;
+            div.innerHTML = `<div><h3>⏰ HORA DE: ${m.name}</h3><p>${m.dose||''}</p></div><button class="btn-tomado" onclick="document.getElementById('${id}').remove()">✓ Tomado</button>`;
+            document.getElementById('alertas-container').prepend(div);
+            if(audioCtx) {
+                let o = audioCtx.createOscillator(); let g = audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination);
+                o.frequency.value = 880; g.gain.setValueAtTime(1, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+1);
+                o.start(); o.stop(audioCtx.currentTime+1);
+            }
+            if(Notification.permission==='granted') { new Notification('💊 Hora de tu medicina', { body: `${m.name} - ${m.dose||''}` }); }
+        }
+    </script>
 </body>
 </html>
