@@ -1,39 +1,55 @@
 // ========================================================
-// SERVICE WORKER - CONTROL DE MEDICAMENTOS MOISÉS AGUILAR
-// Corriendo en segundo plano las 24 horas
+// SERVICE WORKER - ALERTA CONTINUA ESTRIDENTE
 // ========================================================
 
-const CACHE_NAME = 'control-meds-v1';
-const ASSETS = [
-  '/',
-  '/index.html',
-  'https://images.t2.ai/direct/1000093551.png'
-];
+const CACHE_NAME = 'control-meds-v2';
+let intervaloAlarma = null;
 
-// Instalar el Service Worker y almacenar en caché archivos esenciales
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    })
-  );
   self.skipWaiting();
 });
 
-// Activar el Service Worker
 self.addEventListener('activate', (event) => {
   event.waitUntil(self.clients.claim());
 });
 
-// Interceptar clics en la notificación para abrir el sistema en el teléfono
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close(); // Cierra la notificación flotante
+// Escuchar la orden del index.html para empezar la ráfaga de ruido
+self.addEventListener('message', (event) => {
+  if (event.data.accion === 'iniciarAlarmaInfinita') {
+    const { nombre, dosis, url } = event.data;
+    
+    // Si ya hay una alarma sonando, la limpiamos antes de iniciar otra
+    clearInterval(intervaloAlarma);
 
-  // Busca si el sitio ya está abierto en alguna pestaña y la enfoca, si no, la abre nueva
+    // EFECTO METRALLETA: Envía una notificación ruidosa cada 3 segundos
+    intervaloAlarma = setInterval(() => {
+      self.registration.showNotification(`⚠️ ¡ALERTA URGENTE DE MEDICAMENTO!`, {
+        body: `POR FAVOR ATENDER: Toma de ${nombre} (${dosis}). Tap aquí para apagar.`,
+        icon: 'https://images.t2.ai/direct/1000093551.png',
+        badge: 'https://images.t2.ai/direct/1000093551.png',
+        vibrate: [500, 200, 500, 200, 500, 200, 500], // Vibración masiva y larga
+        tag: 'alarma-critica', // El mismo tag sobreescribe y reactiva el sonido del celular
+        renotify: true, // Fuerza al teléfono a volver a sonar y vibrar cada 3 segundos
+        requireInteraction: true, // Mantiene la alerta fija en pantalla en sistemas compatibles
+        data: { url: url }
+      });
+    }, 3000); 
+  }
+});
+
+// Cuando el usuario le da clic a la alerta: DETENEMOS TODO y abrimos la app
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  
+  // Apagar la ráfaga de notificaciones
+  clearInterval(intervaloAlarma);
+
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
         if (client.url === event.notification.data.url && 'focus' in client) {
+          // Enviamos señal a la pestaña abierta para que active el sonido fuerte o lo apague
+          client.postMessage({ accion: 'alertaAtendida' });
           return client.focus();
         }
       }
