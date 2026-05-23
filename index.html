@@ -4,16 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Control de Medicamentos - Moisés Aguilar Miranda</title>
-  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   
-  <link rel="manifest" href="manifest.json">
-
-  <link rel="apple-touch-icon" href="https://images.t2.ai/direct/1000093550.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#1a446c">
-  <meta name="theme-color" content="#1a446c">
-
   <style>
     :root {
       --color-primario: #1a446c;
@@ -136,7 +128,7 @@
       margin-top: 30px;
     }
 
-    /* Estilos de la pantalla de Alarma Crítica */
+    /* Estilos del botón gigante de emergencia */
     #pantalla-alarma {
       display: none;
       position: fixed;
@@ -194,13 +186,13 @@
 
   <div class="container">
     <div class="header">
-      <img src="https://images.t2.ai/direct/1000093550.png" alt="Logo Control de Medicamentos">
+      <img src="https://images.t2.ai/direct/1000093551.png" alt="Logo Control de Medicamentos">
       <h1>Control de Medicamentos</h1>
       <h2>“Moisés Aguilar Miranda”</h2>
     </div>
 
     <div class="status-panel">
-      <span>⏰ Alertas e Icono PWA Configurados con Éxito</span>
+      <span>⏰ Alertas Estridentes Optimizadas y Activas</span>
     </div>
 
     <div class="med-list-title">Próximas Alertas Programadas</div>
@@ -212,13 +204,13 @@
 
   <script>
     // ========================================================
-    // CONFIGURACIÓN DE HORARIOS (Registra tus horas aquí)
+    // 1. HORARIOS Y MEDICAMENTOS (Configura aquí tus horas)
     // ========================================================
     const listaMedicamentos = [
       {
         nombre: "Paracetamol",
         dosis: "1 tableta de 500mg",
-        hora: "08:00" // Formato 24 horas (HH:MM)
+        hora: "08:00" // Formato militar 24 horas (HH:MM)
       },
       {
         nombre: "Amoxicilina",
@@ -235,14 +227,16 @@
     let ultimaAlertaDisparada = "";
     let audioAlarma = null;
 
-    // Registrar el Service Worker (Conexión al archivo sw.js)
+    // ========================================================
+    // 2. REGISTRO DEL SERVICE WORKER Y OBTENCIÓN DE MENSAJES
+    // ========================================================
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       navigator.serviceWorker.register('sw.js')
-        .then(reg => console.log('Service Worker de Alertas e Icono Vinculado.', reg))
-        .catch(err => console.error('Error al registrar Service Worker:', err));
+        .then(reg => console.log('Service Worker enlazado de forma óptima.', reg))
+        .catch(err => console.error('Error al enlazar el Service Worker:', err));
     }
 
-    // Escuchar si el sw.js avisa que se atendió la alerta desde fuera
+    // Escuchar si el sw.js nos avisa que el usuario presionó la notificación externa
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.addEventListener('message', (event) => {
         if (event.data.accion === 'alertaAtendida') {
@@ -257,7 +251,9 @@
       }
     }
 
-    // Reloj verificador constante de tiempo real
+    // ========================================================
+    // 3. MONITOR AUTOMÁTICO EN TIEMPO REAL
+    // ========================================================
     function iniciarRelojVerificador() {
       setInterval(() => {
         const ahora = new Date();
@@ -276,9 +272,11 @@
       }, 1000);
     }
 
-    // Activar alarmas (Dentro y fuera de la aplicación)
+    // ========================================================
+    // 4. ACTIVACIÓN DEL BOMBARDEO DE ALERTAS (DENTRO Y FUERA DE LA APP)
+    // ========================================================
     function activarBombardeoAlarma(nombre, dosis) {
-      // 1. Envía la orden al sw.js para que el teléfono vibre e interrumpa visualmente de forma externa cada 3 segundos
+      // Ordenar al Service Worker que empiece la ráfaga continua de notificaciones visuales/vibración al celular
       if (navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
           accion: 'iniciarAlarmaInfinita',
@@ -288,21 +286,22 @@
         });
       }
 
-      // 2. Muestra la ventana modal roja de impacto visual en la app
+      // Desplegar la pantalla de bloqueo total visual en la app
       document.getElementById('detalles-alarma-urgente').innerText = `Toca tomar:\n${nombre} (${dosis})`;
       document.getElementById('pantalla-alarma').style.display = 'flex';
 
-      // 3. Suena alarma sonora de alta frecuencia
+      // Arrancar sonido repetitivo a alto volumen inmediatamente
       dispararSonidoFuerteNativo();
     }
 
     function dispararSonidoFuerteNativo() {
       if (!audioAlarma) {
+        // Tono tipo sirena/reloj digital molesto de Google Actions
         audioAlarma = new Audio('https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg');
         audioAlarma.loop = true; 
         audioAlarma.volume = 1.0; 
       }
-      audioAlarma.play().catch(e => console.log("Se requiere interacción física para iniciar audio nativo en la web."));
+      audioAlarma.play().catch(e => console.log("Se requiere interacción para iniciar audio en primer plano."));
     }
 
     function desactivarAlarmaDesdePantalla() {
@@ -318,7 +317,9 @@
       console.log("Alarma desactivada de forma absoluta.");
     }
 
-    // Pintar la interfaz del menú de medicamentos
+    // ========================================================
+    // 5. RENDER VISUAL DE LA LISTA
+    // ========================================================
     function pintarMedicamentos() {
       const container = document.getElementById('lista-medicamentos-container');
       container.innerHTML = ""; 
