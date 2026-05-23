@@ -1,8 +1,8 @@
 // ========================================================
-// SERVICE WORKER - ALERTA CONTINUA ESTRIDENTE
+// SERVICE WORKER - ALERTA CRÍTICA INFINITA CON ACCIONES
 // ========================================================
 
-const CACHE_NAME = 'control-meds-v2';
+const CACHE_NAME = 'control-meds-v3';
 let intervaloAlarma = null;
 
 self.addEventListener('install', (event) => {
@@ -13,46 +13,59 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(self.clients.claim());
 });
 
-// Escuchar la orden del index.html para empezar la ráfaga de ruido
+// Escuchar la orden desde el index.html
 self.addEventListener('message', (event) => {
   if (event.data.accion === 'iniciarAlarmaInfinita') {
     const { nombre, dosis, url } = event.data;
     
-    // Si ya hay una alarma sonando, la limpiamos antes de iniciar otra
+    // Limpiar cualquier alarma previa para que no se dupliquen
     clearInterval(intervaloAlarma);
 
-    // EFECTO METRALLETA: Envía una notificación ruidosa cada 3 segundos
+    // BOMBARDEO VISUAL Y SONORO: Se ejecuta cada 3 segundos sin parar
     intervaloAlarma = setInterval(() => {
-      self.registration.showNotification(`⚠️ ¡ALERTA URGENTE DE MEDICAMENTO!`, {
-        body: `POR FAVOR ATENDER: Toma de ${nombre} (${dosis}). Tap aquí para apagar.`,
-        icon: 'https://images.t2.ai/direct/1000093551.png',
+      const ahora = new Date();
+      const horaActual = `${String(ahora.getHours()).padStart(2, '0')}:${String(ahora.getMinutes()).padStart(2, '0')}`;
+
+      self.registration.showNotification(`🚨 ¡ALERTA DE MEDICAMENTO CRÍTICA!`, {
+        body: `TOMAR AHORA: ${nombre}\nDOSIS: ${dosis}\nHora: ${horaActual} hrs.\n\n⚠️ Despliega o toca para atender de inmediato.`,
+        icon: 'https://images.t2.ai/direct/1000093551.png', // Tu logo
         badge: 'https://images.t2.ai/direct/1000093551.png',
-        vibrate: [500, 200, 500, 200, 500, 200, 500], // Vibración masiva y larga
-        tag: 'alarma-critica', // El mismo tag sobreescribe y reactiva el sonido del celular
-        renotify: true, // Fuerza al teléfono a volver a sonar y vibrar cada 3 segundos
-        requireInteraction: true, // Mantiene la alerta fija en pantalla en sistemas compatibles
-        data: { url: url }
+        
+        // Patrón de vibración masivo y rítmico (Vibra 500ms, frena 200ms...)
+        vibrate: [500, 200, 500, 200, 500, 200, 500, 200, 500, 200], 
+        
+        tag: 'alarma-critica-vibrante', // Sobrescribe la alerta anterior para forzar sonido y vibración
+        renotify: true,                 // Obliga al teléfono a sonar en cada repetición
+        requireInteraction: true,       // Mantiene la ventana flotante visible en pantalla
+        data: { url: url },
+        
+        // Botones de acción rápida directo en la notificación flotante
+        actions: [
+          { action: 'confirmar', title: '✅ Ya lo tomé' },
+          { action: 'abrir', title: '📱 Abrir Aplicación' }
+        ]
       });
     }, 3000); 
   }
 });
 
-// Cuando el usuario le da clic a la alerta: DETENEMOS TODO y abrimos la app
+// Manejar los clics en la notificación o en sus botones
 self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
+  event.notification.close(); // Quita la notificación de la pantalla
   
-  // Apagar la ráfaga de notificaciones
+  // Frenamos la ráfaga repetitiva de mensajes y vibraciones
   clearInterval(intervaloAlarma);
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      // Avisar a la pestaña abierta que la alarma se detuvo
       for (const client of clientList) {
         if (client.url === event.notification.data.url && 'focus' in client) {
-          // Enviamos señal a la pestaña abierta para que active el sonido fuerte o lo apague
           client.postMessage({ accion: 'alertaAtendida' });
           return client.focus();
         }
       }
+      // Si la app estaba cerrada, la abre desde cero
       if (clients.openWindow) {
         return clients.openWindow(event.notification.data.url);
       }
